@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花石間景觀露營區</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Shippori+Mincho:wght@300;400;600&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1f1e1c;
+  --text:#3a342e;        /* 主要內文色 - 深 */
+  --text-soft:#5b5349;   /* 次要內文色 - 中 */
+  --paper:#f7f4ee;
+  --moss:#58694b;        /* 加深的莫蘭迪綠 */
+  --moss-deep:#3d4a32;
+  --moss-light:#8a9d75;
+  --stone:#6e6459;       /* 加深 */
+  --stone-light:#c7c0b7;
+  --sakura:#c98b85;
+  --gold:#a88240;
+  --cream:#ede8df;
+  --cream-deep:#e3ddd1;
+  --error:#b04e3a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--text);font-family:'Zen Kaku Gothic New','Noto Serif TC',serif;overflow-x:hidden;font-size:16px;line-height:1.7;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(247,244,238,0.9);backdrop-filter:blur(14px);border-bottom:1px solid rgba(158,148,137,0.18);transition:box-shadow 0.3s;}
+.nav-logo{font-family:'Shippori Mincho',serif;font-size:1.15rem;letter-spacing:0.25em;color:var(--moss-deep);text-decoration:none;font-weight:600;}
+.nav-logo span{color:var(--stone);font-size:0.7rem;display:block;letter-spacing:0.3em;margin-top:2px;font-weight:400;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center;}
+.nav-links a{font-size:0.92rem;letter-spacing:0.15em;color:var(--text);text-decoration:none;transition:color 0.3s;position:relative;font-weight:500;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--moss);transition:width 0.3s;}
+.nav-links a:hover{color:var(--moss);}
+.nav-links a:hover::after{width:100%;}
+.nav-book{background:var(--moss)!important;color:var(--paper)!important;padding:0.45rem 1.1rem;border-radius:2px;}
+.nav-book::after{display:none!important;}
+.nav-book:hover{background:var(--ink)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hamburger span{width:22px;height:1.5px;background:var(--moss);display:block;}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 80% 60% at 20% 60%,rgba(107,124,92,0.18) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 80% at 80% 30%,rgba(184,151,74,0.10) 0%,transparent 55%),
+  linear-gradient(180deg,rgba(247,244,238,0.55) 0%,rgba(247,244,238,0.35) 45%,rgba(247,244,238,0.9) 100%),
+  url('風景照/LINE_ALBUM_花石間漂亮照片_260423_1.jpg') center/cover no-repeat;}
+.hero-title,.hero-sub{text-shadow:0 2px 20px rgba(247,244,238,0.6);}
+.hero-tagline{text-shadow:0 1px 10px rgba(247,244,238,0.8);}
+.hero-deco{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.hero-deco::before{content:'';position:absolute;top:-80px;right:-80px;width:420px;height:420px;border-radius:50%;border:1px solid rgba(107,124,92,0.12);animation:slowSpin 40s linear infinite;}
+.hero-deco::after{content:'';position:absolute;top:-40px;right:-40px;width:280px;height:280px;border-radius:50%;border:1px solid rgba(184,151,74,0.15);animation:slowSpin 30s linear infinite reverse;}
+@keyframes slowSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.petals{position:absolute;inset:0;pointer-events:none;}
+.petal{position:absolute;width:8px;height:8px;background:var(--sakura);border-radius:50% 0 50% 0;animation:fall linear infinite;}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:0;}10%{opacity:0.3;}90%{opacity:0.1;}100%{transform:translateY(100vh) rotate(360deg);opacity:0;}}
+.hero-content{position:relative;z-index:2;text-align:center;padding:2rem;}
+.hero-label{font-size:0.82rem;letter-spacing:0.5em;color:var(--text);margin-bottom:1.5rem;animation:fadeUp 1.2s 0.2s both;font-weight:600;text-shadow:0 1px 8px rgba(247,244,238,0.9);}
+.hero-title{font-family:'Shippori Mincho',serif;font-size:clamp(3.2rem,9vw,7rem);font-weight:500;color:var(--moss-deep);letter-spacing:0.1em;animation:fadeUp 1.2s 0.4s both;}
+.hero-sub{font-family:'Shippori Mincho',serif;font-size:clamp(1.2rem,2.8vw,1.75rem);font-weight:500;color:var(--text);letter-spacing:0.4em;margin:0.5rem 0 2.5rem;animation:fadeUp 1.2s 0.6s both;}
+.hero-tagline{font-size:1.05rem;color:var(--text);letter-spacing:0.18em;line-height:1.9;max-width:460px;margin:0 auto 3rem;animation:fadeUp 1.2s 0.8s both;font-weight:500;text-shadow:0 1px 8px rgba(247,244,238,0.9);}
+.hero-cta{display:inline-flex;align-items:center;gap:0.8rem;background:var(--moss-deep);color:var(--paper);padding:1rem 2.8rem;font-size:0.95rem;letter-spacing:0.25em;border-radius:2px;border:none;font-family:inherit;cursor:pointer;transition:all 0.3s;animation:fadeUp 1.2s 1s both;font-weight:500;box-shadow:0 8px 24px rgba(44,44,44,0.2);text-decoration:none;}
+.hero-cta:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(44,44,44,0.15);}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--stone);font-size:0.65rem;letter-spacing:0.3em;animation:fadeUp 1.2s 1.4s both;}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--moss-light),transparent);animation:pulse 2s ease infinite;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
+@keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+
+/* PAGES (SPA style) */
+.page{display:none;animation:pageIn 0.5s cubic-bezier(0.22,1,0.36,1);}
+.page.active{display:block;}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+body.has-page-nav{padding-top:74px;}
+body.home-active{padding-top:0;}
+
+/* Active nav state */
+.nav-links a.nav-active{color:var(--moss-deep)!important;}
+.nav-links a.nav-active::after{width:100%!important;}
+
+/* SECTIONS */
+section{padding:7rem 2rem;}
+.container{max-width:1100px;margin:0 auto;}
+.section-label{font-size:0.82rem;letter-spacing:0.4em;color:var(--moss);text-transform:uppercase;margin-bottom:0.8rem;font-weight:600;}
+.section-title{font-family:'Shippori Mincho',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:500;color:var(--ink);line-height:1.3;letter-spacing:0.05em;margin-bottom:1.5rem;}
+.section-divider{width:50px;height:2px;background:var(--moss);margin-bottom:2rem;}
+
+/* STORY */
+.story{background:var(--cream);}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.story-visual{position:relative;height:500px;}
+.story-card{position:absolute;border-radius:4px;overflow:hidden;box-shadow:0 18px 50px rgba(44,44,44,0.15);}
+.story-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.8s ease;}
+.story-card:hover img{transform:scale(1.04);}
+.story-card-main{width:78%;height:78%;top:0;left:0;}
+.story-card-accent{width:55%;height:46%;bottom:0;right:0;border:6px solid var(--cream);box-shadow:-10px -10px 40px rgba(44,44,44,0.12);}
+.story-text p{font-size:1.05rem;line-height:2.1;color:var(--text);margin-bottom:1.4rem;}
+.story-quote{border-left:3px solid var(--moss);padding-left:1.5rem;margin:2rem 0;font-family:'Shippori Mincho',serif;font-size:1.25rem;color:var(--moss-deep);line-height:1.8;font-weight:500;}
+
+/* SITES */
+.site-types{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.site-group-title{grid-column:1/-1;font-family:'Shippori Mincho',serif;font-size:1.3rem;color:var(--moss-deep);letter-spacing:0.2em;margin:2.5rem 0 -0.5rem;font-weight:500;padding-left:0.5rem;border-left:3px solid var(--moss);}
+.site-group-title:first-child{margin-top:0;}
+.site-notes{grid-column:1/-1;background:var(--cream);border-left:3px solid var(--moss);padding:1.5rem 1.8rem;margin-top:2rem;border-radius:0 4px 4px 0;}
+.site-notes h4{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--moss-deep);margin-bottom:0.8rem;letter-spacing:0.1em;font-weight:600;}
+.site-notes ul{list-style:none;padding:0;}
+.site-notes li{font-size:0.92rem;color:var(--text);line-height:1.9;padding:0.25rem 0 0.25rem 1.2rem;position:relative;}
+.site-notes li::before{content:'▸';position:absolute;left:0;color:var(--moss);}
+.site-card{border:1px solid var(--stone-light);border-radius:6px;overflow:hidden;transition:all 0.3s;background:var(--paper);}
+.site-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(44,44,44,0.09);}
+.site-img{height:240px;overflow:hidden;position:relative;}
+.site-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;}
+.site-card:hover .site-img img{transform:scale(1.05);}
+.site-body{padding:1.8rem 1.6rem;}
+.site-name{font-family:'Shippori Mincho',serif;font-size:1.5rem;color:var(--ink);margin-bottom:0.4rem;font-weight:500;}
+.site-price{font-size:1rem;color:var(--moss-deep);letter-spacing:0.05em;margin-bottom:0.8rem;font-weight:600;}
+.site-price small{font-size:0.8rem;color:var(--text-soft);font-weight:400;}
+.site-desc{font-size:0.95rem;color:var(--text);line-height:1.9;}
+.site-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:0.82rem;color:var(--text-soft);margin:0.7rem 0 0.5rem;padding-top:0.7rem;border-top:1px dashed var(--stone-light);}
+.site-meta span{display:inline-flex;align-items:center;gap:0.3rem;}
+.site-badge{display:inline-block;font-size:0.78rem;letter-spacing:0.1em;padding:4px 12px;border-radius:20px;background:rgba(88,105,75,0.14);color:var(--moss-deep);margin-bottom:0.6rem;font-weight:500;}
+.site-badge.special{background:rgba(168,130,64,0.15);color:var(--gold);}
+
+/* FACILITIES */
+.fac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.fac-card{background:var(--cream);border:1px solid var(--stone-light);padding:1.8rem 1.4rem;border-radius:4px;transition:all 0.3s;position:relative;overflow:hidden;}
+.fac-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--moss-light);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.fac-card:hover::before{transform:scaleX(1);}
+.fac-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(44,44,44,0.08);}
+.fac-icon{font-size:2rem;margin-bottom:0.8rem;}
+.fac-name{font-family:'Shippori Mincho',serif;font-size:1.2rem;color:var(--ink);margin-bottom:0.4rem;font-weight:500;}
+.fac-desc{font-size:0.92rem;color:var(--text);line-height:1.8;}
+
+/* GALLERY */
+.gallery-sec{background:var(--paper);}
+.gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:140px;gap:10px;margin-top:3rem;}
+.g-item{overflow:hidden;border-radius:4px;position:relative;cursor:pointer;}
+.g-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease, filter 0.4s ease;}
+.g-item:hover img{transform:scale(1.08);filter:brightness(1.06);}
+.g-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(44,44,44,0.35) 100%);opacity:0;transition:opacity 0.4s;}
+.g-item:hover::after{opacity:1;}
+.g-cap{position:absolute;left:14px;bottom:12px;color:var(--paper);font-size:0.72rem;letter-spacing:0.25em;opacity:0;transform:translateY(6px);transition:all 0.4s;z-index:2;font-family:'Shippori Mincho',serif;}
+.g-item:hover .g-cap{opacity:1;transform:none;}
+.g-a{grid-column:span 3;grid-row:span 2;}
+.g-b{grid-column:span 3;grid-row:span 2;}
+.g-c{grid-column:span 2;grid-row:span 2;}
+.g-d{grid-column:span 2;grid-row:span 2;}
+.g-e{grid-column:span 2;grid-row:span 2;}
+@media(max-width:900px){.gallery-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:110px;}.g-a,.g-b{grid-column:span 4;}.g-c,.g-d,.g-e{grid-column:span 2;}}
+@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px;}.g-a,.g-b,.g-c,.g-d,.g-e{grid-column:span 2;grid-row:span 1;}}
+
+/* RULES */
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:2rem;}
+.rules-foot{background:var(--cream);border-left:3px solid var(--moss);padding:1.3rem 1.6rem;margin-top:2rem;font-size:0.95rem;color:var(--text);line-height:1.9;border-radius:0 4px 4px 0;}
+.rules-foot strong{color:var(--moss-deep);font-weight:600;}
+
+/* RENTAL */
+.rental-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin-top:2.5rem;}
+.rental-item{background:var(--paper);border:1px solid var(--stone-light);border-radius:4px;padding:1.1rem 1.3rem;display:flex;justify-content:space-between;align-items:baseline;transition:all 0.25s;}
+.rental-item:hover{border-color:var(--moss);box-shadow:0 6px 20px rgba(44,44,44,0.06);}
+.rental-name{font-size:1rem;color:var(--ink);font-family:'Shippori Mincho',serif;font-weight:500;}
+.rental-price{font-size:0.95rem;color:var(--moss-deep);font-weight:600;white-space:nowrap;margin-left:0.8rem;}
+.rental-note{margin-top:1.2rem;font-size:0.88rem;color:var(--text-soft);line-height:1.8;}
+
+/* CANCEL POLICY */
+.cancel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem;}
+.cancel-card{background:var(--paper);border:1px solid var(--stone-light);border-radius:6px;padding:1.5rem;text-align:center;transition:all 0.3s;}
+.cancel-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(44,44,44,0.08);}
+.cancel-days{font-family:'Shippori Mincho',serif;font-size:1.6rem;color:var(--moss-deep);font-weight:600;margin-bottom:0.3rem;letter-spacing:0.05em;}
+.cancel-refund{font-size:1.1rem;color:var(--text);margin-bottom:0.5rem;font-weight:500;}
+.cancel-refund.full{color:var(--moss);}
+.cancel-refund.half{color:var(--gold);}
+.cancel-refund.none{color:var(--error);}
+.cancel-desc{font-size:0.85rem;color:var(--text-soft);line-height:1.7;}
+@media(max-width:900px){.rental-grid{grid-template-columns:1fr 1fr;}.cancel-grid{grid-template-columns:1fr;}}
+@media(max-width:600px){.rental-grid{grid-template-columns:1fr;}}
+.rule-item{display:flex;gap:0.9rem;padding:1.1rem 1.2rem;border-radius:4px;background:var(--paper);border:1px solid rgba(158,148,137,0.25);}
+.rule-num{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--moss-deep);font-weight:600;min-width:26px;flex-shrink:0;}
+.rule-dot{width:7px;height:7px;border-radius:50%;background:var(--moss);margin-top:8px;flex-shrink:0;}
+.rule-text{font-size:0.95rem;color:var(--text);line-height:1.85;}
+.rule-text strong{color:var(--ink);font-weight:600;display:block;margin-bottom:3px;}
+
+/* MAP */
+.map-wrap{display:block;margin:3rem auto 0;max-width:760px;}
+.map-btn-row{display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:1.4rem;}
+.transport-item{display:flex;gap:0.8rem;padding:0.9rem 0;border-bottom:1px solid rgba(158,148,137,0.2);font-size:0.95rem;color:var(--text);line-height:1.7;}
+.map-btn{display:inline-flex;align-items:center;gap:0.5rem;background:var(--moss-deep);color:var(--paper);text-decoration:none;padding:0.85rem 1.8rem;font-size:0.95rem;letter-spacing:0.18em;border-radius:2px;transition:all 0.3s;font-weight:500;}
+.map-btn.alt{background:var(--paper);color:var(--moss-deep);border:1px solid var(--moss-deep);}
+.map-btn:hover.alt{background:var(--moss-deep);color:var(--paper);}
+
+/* ROUTE */
+.route-warn{background:#fdf0ec;border:1px solid #e0a89a;border-radius:6px;padding:1.1rem 1.4rem;margin:1.5rem 0 1.2rem;display:flex;gap:0.9rem;align-items:flex-start;}
+.route-warn-icon{font-size:1.6rem;flex-shrink:0;line-height:1;}
+.route-warn-txt{font-size:0.98rem;color:#8a3d28;line-height:1.7;font-weight:500;}
+.route-warn-txt strong{color:#b04e3a;font-weight:700;}
+.route-steps{margin:0.5rem 0 0;list-style:none;padding:0;counter-reset:step;}
+.route-steps li{position:relative;padding:1rem 1rem 1rem 3.6rem;margin-bottom:0.6rem;background:var(--paper);border:1px solid var(--stone-light);border-radius:6px;font-size:0.98rem;color:var(--text);line-height:1.8;counter-increment:step;}
+.route-steps li::before{content:counter(step);position:absolute;left:1rem;top:1rem;width:2rem;height:2rem;border-radius:50%;background:var(--moss-deep);color:var(--paper);font-family:'Shippori Mincho',serif;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.route-steps li strong{color:var(--moss-deep);font-weight:600;}
+.route-steps li a{color:var(--moss);text-decoration:underline;font-weight:500;word-break:break-all;}
+.route-photo-wrap{position:relative;display:block;width:100%;max-width:420px;margin-top:0.8rem;}
+.route-photo{display:block;width:100%;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);}
+.route-arrow{position:absolute;left:14%;top:42%;font-size:3.4rem;line-height:1;color:#ff5a3c;text-shadow:0 0 6px rgba(255,255,255,0.9),0 0 3px rgba(255,255,255,0.9),0 2px 4px rgba(0,0,0,0.35);pointer-events:none;}
+.route-photo-cap{margin:0.4rem 0 0;font-size:0.82rem;color:var(--text-soft);}
+.route-tip{font-size:0.9rem;color:var(--text-soft);line-height:1.8;margin-top:0.8rem;padding:0.6rem 0.8rem;background:rgba(88,105,75,0.06);border-left:2px solid var(--moss-light);border-radius:0 4px 4px 0;}
+.map-btn:hover{background:var(--ink);transform:translateY(-2px);}
+
+/* SOCIAL */
+.social-sec{background:var(--moss);padding:5rem 2rem;text-align:center;}
+.social-sec .section-title{color:var(--paper);}
+.social-sec .section-label{color:rgba(163,180,138,0.7);}
+.social-links{display:flex;justify-content:center;gap:1.2rem;margin-top:2.5rem;flex-wrap:wrap;}
+.social-link{display:flex;align-items:center;gap:0.6rem;background:rgba(247,244,238,0.14);color:var(--paper);text-decoration:none;padding:0.9rem 1.6rem;border-radius:2px;font-size:0.95rem;letter-spacing:0.1em;border:1px solid rgba(247,244,238,0.3);transition:all 0.3s;font-weight:500;}
+.social-link:hover{background:rgba(247,244,238,0.22);transform:translateY(-3px);}
+.big-cta-btn{display:inline-block;background:var(--paper);color:var(--moss);border:none;padding:1rem 3rem;font-size:0.85rem;letter-spacing:0.3em;border-radius:2px;font-family:'Shippori Mincho',serif;cursor:pointer;transition:all 0.3s;margin-top:2rem;text-decoration:none;}
+.big-cta-btn:hover{background:var(--gold);color:var(--paper);}
+
+footer{background:var(--ink);padding:3rem 2rem;text-align:center;color:rgba(247,244,238,0.4);font-size:0.72rem;letter-spacing:0.2em;line-height:2;}
+footer a{color:rgba(247,244,238,0.5);text-decoration:none;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1);}
+.reveal.visible{opacity:1;transform:none;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(247,244,238,0.97);padding:1.5rem;gap:1rem;border-bottom:1px solid var(--stone-light);}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  .story-grid,.rules-grid{grid-template-columns:1fr;}
+  .site-types{grid-template-columns:1fr 1fr;}
+  .story-visual{height:280px;}
+  .fac-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  section{padding:5rem 1.2rem;}
+  .site-types,.fac-grid{grid-template-columns:1fr;}
+  .hero-title{font-size:3.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="nav-logo" onclick="showPage('home');return false;">花石間<span>BETWEEN FLOWER & STONE</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about"      onclick="showPage('about');return false;"      data-page="about">關於我們</a></li>
+    <li><a href="#sites"      onclick="showPage('sites');return false;"      data-page="sites">營位介紹</a></li>
+    <li><a href="#facilities" onclick="showPage('facilities');return false;" data-page="facilities">營區設施</a></li>
+    <li><a href="#gallery"    onclick="showPage('gallery');return false;"    data-page="gallery">山林風景</a></li>
+    <li><a href="#rules"      onclick="showPage('rules');return false;"      data-page="rules">營區規定</a></li>
+    <li><a href="#map"        onclick="showPage('map');return false;"        data-page="map">如何抵達</a></li>
+    <li><a href="#contact"    onclick="showPage('contact');return false;"    data-page="contact">追蹤我們</a></li>
+    <li><a href="https://line.me/R/ti/p/@xxc3763j" target="_blank" rel="noopener" class="nav-book">加 LINE 預約</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══════ PAGE: HOME ══════ -->
+<div class="page active" id="page-home">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-deco"></div>
+  <div class="petals" id="petals"></div>
+  <div class="hero-content">
+    <p class="hero-label">Nantou · Taiwan · Camping</p>
+    <h1 class="hero-title">花石間</h1>
+    <p class="hero-sub">景觀露營區</p>
+    <p class="hero-tagline">花時間 · 花石間<br>隱居山林，徜徉在花草與石間</p>
+    <a class="hero-cta" href="https://line.me/R/ti/p/@xxc3763j" target="_blank" rel="noopener">✦ LINE 預約營位</a>
+  </div>
+  <div class="hero-scroll" onclick="showPage('about')" style="cursor:pointer"><div class="scroll-line"></div><span>EXPLORE</span></div>
+</section>
+</div><!-- /page-home -->
+
+<!-- ══════ PAGE: ABOUT ══════ -->
+<div class="page" id="page-about">
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-visual reveal">
+        <div class="story-card story-card-main"><img src="營區空拍圖/LINE_ALBUM_營區空拍圖_260423_1.jpg" alt="花石間營區空拍全景"></div>
+        <div class="story-card story-card-accent"><img src="風景照/LINE_ALBUM_花石間漂亮照片_260423_30.jpg" alt="山林間的櫻花小徑"></div>
+      </div>
+      <div class="story-text reveal">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">為什麼叫做<br>花石間？</h2>
+        <div class="section-divider"></div>
+        <div class="story-quote">「花石間」是隱居山林、徜徉在花草間的浪漫夢想</div>
+        <p>年輕時的場主汲汲營營地想成為能肩負重擔的男人，所以花時間在學校裡埋頭苦學、花時間在事業中過關斬將，更是花時間在家庭塑造幸福。</p>
+        <p>直到孩子們都長大外出生活後，才赫然發現自己沒有花時間在塵封已久的夢想上。花時間在花石間，是場主開啟夢想的一小步，也是你共享純淨心靈的一大步。</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /page-about -->
+
+<!-- ══════ PAGE: SITES ══════ -->
+<div class="page" id="page-sites">
+<!-- SITES -->
+<section id="sites">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Camp Sites</p>
+      <h2 class="section-title">營位類型</h2>
+      <div class="section-divider"></div>
+    </div>
+    <p class="site-group-title reveal">— 草地營區 —</p>
+    <div class="site-types reveal">
+      <div class="site-card">
+        <div class="site-img grass"><img src="草皮各區照片/B區.jpg" alt="花石間 A/B 草皮營位"></div>
+        <div class="site-body">
+          <p class="site-name">草皮 A／B 區</p>
+          <p class="site-price">NT$ 1,100 <small>／帳</small></p>
+          <p class="site-desc">開闊草坡、遠眺群山。A1 區 3 帳、A2 區 7 帳、B 區 7 帳，每帳營位 5×7 公尺。</p>
+          <div class="site-meta"><span>⛺ 總計 17 帳</span><span>📐 5×7 m</span></div>
+        </div>
+      </div>
+      <div class="site-card">
+        <div class="site-img"><img src="草皮各區照片/C區1.jpg" alt="花石間 C 區草皮營位"></div>
+        <div class="site-body">
+          <p class="site-name">草皮 C 區</p>
+          <p class="site-price">NT$ 1,200 <small>／帳</small></p>
+          <p class="site-desc">上層視野最遼闊，看雲海、賞日出。C1 區 3 帳、C2 區 5 帳、C3 區 3 帳，每帳營位 5×7 公尺。</p>
+          <div class="site-meta"><span>⛺ 總計 11 帳</span><span>📐 5×7 m</span></div>
+        </div>
+      </div>
+      <div class="site-card">
+        <div class="site-img"><img src="草皮各區照片/雨棚.jpg" alt="花石間 C3 區雨棚營位"></div>
+        <div class="site-body">
+          <p class="site-name">C3 雨棚營位</p>
+          <p class="site-price">NT$ 1,500 <small>／帳</small></p>
+          <p class="site-desc">有頂棚遮蔽，雨天也能安心露營，僅此一帳。營位 7.2×3.6 公尺，空間寬敞舒適。</p>
+          <div class="site-meta"><span>⛺ 1 帳</span><span>📐 7.2×3.6 m</span><span>☂ 有頂</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="site-group-title reveal">— 輕露營小屋區 —</p>
+    <div class="site-types reveal">
+      <div class="site-card">
+        <div class="site-img"><img src="輕露營小屋區/雙人房1.jpg" alt="雙人小屋 竹亭／梅苑"></div>
+        <div class="site-body">
+          <p class="site-name">雙人小屋 · 竹亭</p>
+          <p class="site-price">NT$ 2,500 <small>／間</small></p>
+          <p class="site-desc">溫潤木造空間，內附雙人床墊、枕頭、電風扇、茶几。附露臺桌椅。</p>
+          <div class="site-meta"><span>🏠 室內 3×3 m</span><span>🌿 露臺 2.7×2.6 m</span></div>
+        </div>
+      </div>
+      <div class="site-card">
+        <div class="site-img"><img src="輕露營小屋區/雙人房露臺.jpg" alt="雙人小屋 梅苑"></div>
+        <div class="site-body">
+          <p class="site-name">雙人小屋 · 梅苑</p>
+          <p class="site-price">NT$ 2,500 <small>／間</small></p>
+          <p class="site-desc">與竹亭相同規格。木造露臺延伸至山邊，坐在椅上就能收進整片綠意。</p>
+          <div class="site-meta"><span>🏠 室內 3×3 m</span><span>🌿 露臺 2.7×2.6 m</span></div>
+        </div>
+      </div>
+      <div class="site-card">
+        <div class="site-img"><img src="輕露營小屋區/四人房露臺.jpg" alt="四人小屋 松風"></div>
+        <div class="site-body">
+          <p class="site-name">四人小屋 · 松風</p>
+          <p class="site-price">NT$ 4,800 <small>／間</small></p>
+          <p class="site-desc">寬敞的四人空間配上大露臺，適合小家庭或好友同遊。可加至 8 人同住。</p>
+          <div class="site-meta"><span>🏠 室內 5.2×6 m</span><span>🌿 露臺 2.4×5.4 m</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-notes reveal">
+      <h4>✎ 訂位與加收說明</h4>
+      <ul>
+        <li>每帳／每間基本 4 人，幼稚園以下孩童免費；每多一人酌收 NT$ 200。</li>
+        <li>一帳 1 車，每多一車酌收 NT$ 200（現場停車位有限）。</li>
+        <li>草地營位在範圍內自行增加帳數，每多一帳酌收 NT$ 800。</li>
+        <li>預約後三日內需完成<strong>全額匯款</strong>，匯款完成請告知帳戶後五碼。</li>
+        <li>連續假日前一晚「夜衝」草地營位享 <strong>半價優惠</strong>（連假期間夜衝為原價）；小屋夜衝無優惠。</li>
+        <li>雙人小屋可加 2 人、松風可加 4 人（加人無附設備）。三間小屋共用浴廁，棉被需自備。</li>
+        <li>同一層的小包區為同平面劃分，無圍籬、植被或高度落差作為隔間，並共用該層浴廁。</li>
+        <li>歡迎包區，相關事宜請來電洽談。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div><!-- /page-sites -->
+
+<!-- ══════ PAGE: FACILITIES ══════ -->
+<div class="page" id="page-facilities">
+<!-- FACILITIES -->
+<section id="facilities" style="background:var(--cream)">
+  <div class="container">
+    <div class="reveal"><p class="section-label">Facilities</p><h2 class="section-title">營區設施</h2><div class="section-divider"></div></div>
+    <div class="fac-grid">
+      <div class="fac-card reveal"><div class="fac-icon">🚿</div><p class="fac-name">熱水衛浴</p><p class="fac-desc">乾淨舒適，24 小時提供熱水淋浴。</p></div>
+      <div class="fac-card reveal"><div class="fac-icon">🔌</div><p class="fac-name">電力供應</p><p class="fac-desc">各營位配備電源，可供照明及手機、小家電使用；冷氣機、電磁爐等高功率電器請避免使用，以免跳電。</p></div>
+      <div class="fac-card reveal"><div class="fac-icon">💧</div><p class="fac-name">用水設施</p><p class="fac-desc">山泉水源充足，設有洗滌台，洗菜煮飯無虞。</p></div>
+      <div class="fac-card reveal"><div class="fac-icon">❄️</div><p class="fac-name">冰箱</p><p class="fac-desc">A、B、C 三區皆設有冰箱，食材保鮮不用愁。</p></div>
+      <div class="fac-card reveal"><div class="fac-icon">🏖️</div><p class="fac-name">沙坑遊戲區</p><p class="fac-desc">孩子最愛的玩沙天地，讓小朋友盡情放電。</p></div>
+      <div class="fac-card reveal"><div class="fac-icon">🌿</div><p class="fac-name">山林景觀</p><p class="fac-desc">四周翠綠環繞，四季各有迷人風貌。</p></div>
+    </div>
+  </div>
+</section>
+</div><!-- /page-facilities -->
+
+<!-- ══════ PAGE: GALLERY ══════ -->
+<div class="page" id="page-gallery">
+<!-- GALLERY -->
+<section id="gallery" class="gallery-sec">
+  <div class="container">
+    <div class="reveal"><p class="section-label">Scenery · Moments</p><h2 class="section-title">山林風景 · 四季光影</h2><div class="section-divider"></div>
+    <p style="font-size:0.88rem;color:var(--stone);line-height:2;max-width:620px;">從雲海、星空、櫻花到火紅的楓葉 ─ 花石間的每一個季節，都是一張值得收藏的風景明信片。</p></div>
+    <div class="gallery-grid reveal">
+      <div class="g-item g-a"><img src="風景照/LINE_ALBUM_花石間漂亮照片_260423_10.jpg" alt="山嵐雲海"><span class="g-cap">雲海 · 晨昏</span></div>
+      <div class="g-item g-b"><img src="風景照/LINE_ALBUM_花石間漂亮照片_260423_15.jpg" alt="夜晚星空帳篷"><span class="g-cap">星空 · 夜營</span></div>
+      <div class="g-item g-c"><img src="風景照/LINE_ALBUM_花石間漂亮照片_260423_25.jpg" alt="紅葉山景"><span class="g-cap">秋楓 · 紅豔</span></div>
+      <div class="g-item g-d"><img src="風景照/LINE_ALBUM_花石間漂亮照片_260423_20.jpg" alt="夜間露營光影"><span class="g-cap">夜色 · 燈火</span></div>
+      <div class="g-item g-e"><img src="營區空拍圖/LINE_ALBUM_營區空拍圖_260423_5.jpg" alt="營區空拍景色"><span class="g-cap">空拍 · 全景</span></div>
+    </div>
+  </div>
+</section>
+</div><!-- /page-gallery -->
+
+<!-- ══════ PAGE: RULES (rules + rental + cancel) ══════ -->
+<div class="page" id="page-rules">
+<!-- RULES -->
+<section id="rules" style="background:var(--paper);padding:7rem 2rem;">
+  <div class="container">
+    <div class="reveal"><p class="section-label">Camp Rules</p><h2 class="section-title">營區規定</h2><div class="section-divider"></div>
+    <p style="font-size:0.95rem;color:var(--text);line-height:1.9;max-width:640px;">為了讓每位露友都能在花石間擁有舒適寧靜的體驗，請各位配合以下規範，共創美好回憶。</p></div>
+    <div class="rules-grid">
+      <div class="rule-item reveal"><span class="rule-num">01</span><div class="rule-text"><strong>夜衝規定</strong>僅限隔日續住者可夜衝，入營時間 18:00–22:00，早到或晚到請事先通知。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">02</span><div class="rule-text"><strong>車輛管理</strong>上下裝備後請將車輛停放於指示地點，車輛進出請放慢行駛速度。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">03</span><div class="rule-text"><strong>全區禁菸</strong>營區內禁止吸菸，有吸菸需求者請移動至營區外圍水泥路入口處。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">04</span><div class="rule-text"><strong>安寧守則</strong>禁止煙火、麻將、卡拉 OK 等影響大自然相處之活動。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">05</span><div class="rule-text"><strong>用電規範</strong>請勿使用冷氣機、烘焙機、電磁爐、電鍋等負載過量之電器，避免跳電或設備損毀，若造成公共設備毀損須負賠償責任。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">06</span><div class="rule-text"><strong>違法行為</strong>嚴禁賭博、施用毒品及一切違法行為，違者立即報警處理並取消營地使用。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">07</span><div class="rule-text"><strong>愛護公物</strong>嚴禁破壞營區公物，違者應負賠償責任。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">08</span><div class="rule-text"><strong>保護草皮</strong>烤肉熱源請離地 30 cm 以上；熱鍋熱水請勿直接倒於草皮，若造成草皮毀損須負賠償責任。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">09</span><div class="rule-text"><strong>地墊使用</strong>營區提供黑色地墊鋪設。地墊及睡袋如需曝曬，請曬於圍欄四周或用桌椅墊高。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">10</span><div class="rule-text"><strong>停車規定</strong>草皮區請勿停車，如有特殊需求請事先洽詢。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">11</span><div class="rule-text"><strong>天幕限制</strong>請勿使用大型天幕，並斟酌使用客廳帳及天幕。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">12</span><div class="rule-text"><strong>天候休園</strong>草皮如受損嚴重或連日大雨，將視情況休園或更動行駛路線。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">13</span><div class="rule-text"><strong>小屋使用</strong>輕露營小屋室內外嚴禁吸菸、焚燒明火與烤肉。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">14</span><div class="rule-text"><strong>垃圾分類</strong>每層設有垃圾桶，請秉持無痕森林、垃圾不落地，確實做好分類。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">15</span><div class="rule-text"><strong>寵物管理</strong>歡迎攜帶寵物，請自行處理排泄物、勿讓寵物進入他人營位並隨時看管，若發生糾紛本營區不負責任。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">16</span><div class="rule-text"><strong>兒童安全</strong>請家長隨時提醒孩子注意安全，切勿跨越圍籬、丟擲石子等危險行為。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">17</span><div class="rule-text"><strong>節約用水</strong>山林取水不易，請節約用水、一起愛地球。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">18</span><div class="rule-text"><strong>盥洗時間</strong>浴室 24 小時供應熱水，但請於晚間 23:00 前盥洗完畢，避免影響他人休息。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">19</span><div class="rule-text"><strong>音量管制</strong>晚間 22:00 至早上 08:00 請降低音量，勸導兩次以上未改善者，取消露營權益且不退款。</div></div>
+      <div class="rule-item reveal"><span class="rule-num">20</span><div class="rule-text"><strong>一車一帳</strong>請遵守一車一帳之規定；來訪之遊客每車、每人收 NT$ 200。</div></div>
+    </div>
+    <div class="rules-foot reveal">
+      <strong>✎ 共同約定：</strong>請各位露友遵守以上規定，共創美好回憶。如不遵守且屢勸不聽者，營主有權請之離席。本營區保留修改、終止、變更內容細節之權利。
+    </div>
+  </div>
+</section>
+
+<!-- RENTAL -->
+<section id="rental" style="background:var(--cream);padding:7rem 2rem;">
+  <div class="container">
+    <div class="reveal"><p class="section-label">Rental Equipment</p><h2 class="section-title">租借設備</h2><div class="section-divider"></div>
+    <p style="font-size:0.95rem;color:var(--text);line-height:1.9;max-width:620px;">沒帶齊裝備也沒關係，我們提供多項常用設備租借，讓您輕裝來訪、盡情享受山林時光。</p></div>
+    <div class="rental-grid reveal">
+      <div class="rental-item"><span class="rental-name">充氣帳</span><span class="rental-price">NT$ 900 ／晚</span></div>
+      <div class="rental-item"><span class="rental-name">客廳帳 <small style="color:var(--text-soft);font-size:0.78rem">（含四塊邊布）</small></span><span class="rental-price">NT$ 800 ／晚</span></div>
+      <div class="rental-item"><span class="rental-name">代搭帳篷</span><span class="rental-price">+ NT$ 600</span></div>
+      <div class="rental-item"><span class="rental-name">露營桌</span><span class="rental-price">NT$ 300 ／晚</span></div>
+      <div class="rental-item"><span class="rental-name">露營椅</span><span class="rental-price">NT$ 100 ／晚</span></div>
+      <div class="rental-item"><span class="rental-name">單人氣墊床</span><span class="rental-price">NT$ 200 ／晚</span></div>
+      <div class="rental-item"><span class="rental-name">燈條</span><span class="rental-price">NT$ 150 ／晚</span></div>
+      <div class="rental-item"><span class="rental-name">青蛙燈</span><span class="rental-price">NT$ 5 ／個／晚</span></div>
+      <div class="rental-item"><span class="rental-name">動力延長線</span><span class="rental-price">NT$ 50 ／晚</span></div>
+    </div>
+    <p class="rental-note reveal">✎ 租借設備數量有限，請<strong style="color:var(--moss-deep)">事先詢問預約</strong>。請合理使用設備，若有毀損須負賠償責任。</p>
+  </div>
+</section>
+
+<!-- CANCELLATION -->
+<section id="cancel" style="background:var(--paper);padding:7rem 2rem;">
+  <div class="container">
+    <div class="reveal"><p class="section-label">Cancellation Policy</p><h2 class="section-title">人為因素退訂須知</h2><div class="section-divider"></div>
+    <p style="font-size:0.95rem;color:var(--text);line-height:1.9;max-width:620px;">計畫趕不上變化，我們提供三階段的退訂政策。天候因素導致的休園將全額退還，不受以下時程限制。</p></div>
+    <div class="cancel-grid reveal">
+      <div class="cancel-card">
+        <p class="cancel-days">14 天前</p>
+        <p class="cancel-refund full">退還 100%</p>
+        <p class="cancel-desc">訂金全額退還，或保留<br>露營權益三個月</p>
+      </div>
+      <div class="cancel-card">
+        <p class="cancel-days">7 – 13 天前</p>
+        <p class="cancel-refund half">退還 50%</p>
+        <p class="cancel-desc">訂金退還一半，或保留<br>露營權益三個月</p>
+      </div>
+      <div class="cancel-card">
+        <p class="cancel-days">0 – 6 天前</p>
+        <p class="cancel-refund none">訂金沒收</p>
+        <p class="cancel-desc">恕無法退還訂金<br>亦無法選擇保留權益</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /page-rules -->
+
+<!-- ══════ PAGE: MAP (how to arrive + contact) ══════ -->
+<div class="page" id="page-map">
+<!-- MAP -->
+<section id="map" style="padding:7rem 2rem;background:var(--cream)">
+  <div class="container">
+    <div class="reveal"><p class="section-label">How To Find Us</p><h2 class="section-title">如何抵達</h2><div class="section-divider"></div></div>
+    <div class="map-wrap">
+      <div class="reveal">
+        <div class="route-warn">
+          <span class="route-warn-icon">⚠️</span>
+          <p class="route-warn-txt"><strong>千萬不可直接導航「花石間」！</strong>會繞到頭昏眼花。請依以下三步驟前來，沿路都有指標。</p>
+        </div>
+
+        <ol class="route-steps">
+          <li>請先導航至 <strong>「泰安鄉大興社區發展協會」</strong>。</li>
+          <li>繼續往前車行約 <strong>1 分鐘</strong>，看到花石間的<strong>手作招牌</strong>，從左邊岔路上來（水泥路、較小較陡）。<br><a href="https://maps.app.goo.gl/Q5GVSKTJvTdokDq68" target="_blank">📍 岔路處 Google 定位</a>
+            <div class="route-photo-wrap">
+              <img src="路線照片/岔路口.jpg" alt="岔路口實景，左邊上坡道路通往花石間" class="route-photo">
+              <span class="route-arrow">↖</span>
+            </div>
+            <p class="route-photo-cap">👆 岔路口實景：從<strong>左邊上坡</strong>的水泥路進來就對了</p>
+          </li>
+          <li>直走即到「花石間」，車行約 <strong>2–3 分鐘</strong>，沿路都有指標。</li>
+        </ol>
+
+        <p class="route-tip">💡 山路微微小陡，慢慢開即可，會有柳暗花明又一村的驚奇感 😄　若路上有任何問題，請撥打上方任一電話或 LINE 聯繫，我們很樂意協助。</p>
+
+        <p style="font-size:0.88rem;color:var(--text-soft);margin-top:1.2rem;line-height:1.8">※ 本營區位於山區，目前<strong style="color:var(--text)">無大眾運輸直達</strong>，建議自行開車或與親友共乘前往。</p>
+
+        <div class="map-btn-row">
+          <a href="https://maps.google.com/?q=泰安鄉大興社區發展協會" target="_blank" class="map-btn">🗺️ 導航至大興社區發展協會</a>
+          <a href="https://maps.app.goo.gl/Q5GVSKTJvTdokDq68" target="_blank" class="map-btn alt">📍 岔路口定位</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /page-map -->
+
+<!-- ══════ PAGE: CONTACT (social + follow) ══════ -->
+<div class="page" id="page-contact">
+<!-- SOCIAL -->
+<section class="social-sec" id="contact">
+  <div class="container">
+    <p class="section-label" style="color:rgba(247,244,238,0.75)">Follow Us</p>
+    <h2 class="section-title">追蹤我們</h2>
+    <p style="color:rgba(247,244,238,0.8);font-size:1rem;letter-spacing:0.1em;margin-top:0.5rem;line-height:1.9">最新消息與活動資訊，請追蹤我們的社群</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/hu.yu.daughter" target="_blank" class="social-link">📘 Facebook</a>
+      <a href="https://www.instagram.com/flower_nstone" target="_blank" class="social-link">📷 Instagram @flower_nstone</a>
+    </div>
+    <div style="margin-top:3rem;padding-top:3rem;border-top:1px solid rgba(247,244,238,0.15)">
+      <p style="color:rgba(247,244,238,0.85);font-size:1rem;letter-spacing:0.12em;margin-bottom:0;line-height:1.9">準備好了嗎？花時間，來花石間。</p>
+      <a class="big-cta-btn" href="https://line.me/R/ti/p/@xxc3763j" target="_blank" rel="noopener">✦ LINE 預約營位</a>
+    </div>
+  </div>
+</section>
+</div><!-- /page-contact -->
+
+<footer>
+  <p style="font-family:'Shippori Mincho',serif;font-size:1.2rem;color:rgba(247,244,238,0.8);letter-spacing:0.3em;margin-bottom:1rem;font-weight:500">花石間景觀露營區</p>
+  <p style="font-size:0.9rem;color:rgba(247,244,238,0.7);margin-bottom:0.5rem">📞 0975-670-059 營主　·　0933-152-018 余小姐　·　💬 LINE @xxc3763j</p>
+  <p style="font-size:0.82rem">© 2026 花石間景觀露營區 · Between Flower & Stone Camping</p>
+  <p style="margin-top:0.6rem"><a href="https://www.facebook.com/hu.yu.daughter">Facebook</a> · <a href="https://www.instagram.com/flower_nstone">Instagram</a> · <a href="https://line.me/R/ti/p/@xxc3763j">LINE</a></p>
+</footer>
+
+<!-- 預約功能已移除：所有預約請透過官方 LINE 進行，見上方「LINE 預約營位」按鈕 -->
+
+<script>
+// ── PETALS ──
+const petalsEl = document.getElementById('petals');
+for(let i=0;i<16;i++){
+  const p=document.createElement('div'); p.className='petal';
+  p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*20+80}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*10}s;transform:rotate(${Math.random()*360}deg) scale(${0.5+Math.random()});`;
+  petalsEl.appendChild(p);
+}
+
+// ── REVEAL ──
+new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});
+},{threshold:0.1}).observe && document.querySelectorAll('.reveal').forEach(el=>{
+  new IntersectionObserver((en)=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1}).observe(el);
+});
+
+// ── NAV ──
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');}
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.boxShadow=scrollY>40?'0 4px 20px rgba(44,44,44,0.07)':'none';
+});
+
+// ── SPA PAGE SWITCHER ──
+const VALID_PAGES = ['home','about','sites','facilities','gallery','rules','map','contact'];
+function showPage(id){
+  if(!VALID_PAGES.includes(id)) id = 'home';
+  // toggle pages
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target = document.getElementById('page-'+id);
+  if(target) target.classList.add('active');
+  // update nav active state
+  document.querySelectorAll('.nav-links a[data-page]').forEach(a=>{
+    a.classList.toggle('nav-active', a.getAttribute('data-page')===id);
+  });
+  // body class for hero padding-top handling
+  document.body.classList.toggle('home-active', id==='home');
+  // close mobile menu
+  document.getElementById('navLinks').classList.remove('open');
+  // re-run reveal animations for the newly visible page
+  if(target){
+    target.querySelectorAll('.reveal').forEach(el=>{
+      el.classList.remove('visible');
+      setTimeout(()=>el.classList.add('visible'), 50);
+    });
+  }
+  // update URL hash without jumping
+  try{ history.replaceState(null,'', '#'+id); }catch(e){}
+  // scroll to top of viewport
+  window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+}
+
+// Init page from URL hash on load
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.body.classList.add('has-page-nav');
+  const h = (location.hash||'').replace('#','');
+  showPage(VALID_PAGES.includes(h) ? h : 'home');
+});
+
+// Respond to back / forward
+window.addEventListener('popstate', ()=>{
+  const h = (location.hash||'').replace('#','');
+  showPage(VALID_PAGES.includes(h) ? h : 'home');
+});
+
+</script>
+</body>
+</html>
