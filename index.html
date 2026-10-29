@@ -189,6 +189,9 @@ section{padding:7rem 2rem;}
 .rental-name{font-size:1rem;color:var(--ink);font-family:'Shippori Mincho',serif;font-weight:500;}
 .rental-price{font-size:0.95rem;color:var(--moss-deep);font-weight:600;white-space:nowrap;margin-left:0.8rem;}
 .rental-note{margin-top:1.2rem;font-size:0.88rem;color:var(--text-soft);line-height:1.8;}
+.rental-notes-list{list-style:none;padding:0;margin-top:1.2rem;}
+.rental-notes-list li{font-size:0.88rem;color:var(--text-soft);line-height:1.8;padding-left:1.3rem;position:relative;margin-bottom:0.35rem;}
+.rental-notes-list li::before{content:'✎';position:absolute;left:0;color:var(--moss);}
 
 /* CANCEL POLICY */
 .cancel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem;}
@@ -506,7 +509,11 @@ footer a{color:rgba(247,244,238,0.5);text-decoration:none;}
       <div class="rental-item"><span class="rental-name">青蛙燈</span><span class="rental-price">NT$ 5 ／個／晚</span></div>
       <div class="rental-item"><span class="rental-name">動力延長線</span><span class="rental-price">NT$ 50 ／晚</span></div>
     </div>
-    <p class="rental-note reveal">✎ 租借設備數量有限，請<strong style="color:var(--moss-deep)">事先詢問預約</strong>。請合理使用設備，若有毀損須負賠償責任。租借設備第二晚打八折。</p>
+    <ul class="rental-notes-list reveal">
+      <li>租借設備第二晚八折優惠</li>
+      <li>租借設備數量有限，請事先詢問</li>
+      <li>請合理使用設備，若有毀損須負賠償責任</li>
+    </ul>
   </div>
 </section>
 
